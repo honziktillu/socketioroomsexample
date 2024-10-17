@@ -1,0 +1,19 @@
+{
+  "name": "socketioexample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "http": "^0.0.1-security",
+    "nodemon": "^3.1.7",
+    "path": "^0.12.7",
+    "socket.io": "^4.8.0"
+  }
+}
