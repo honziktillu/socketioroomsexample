@@ -16,27 +16,6 @@ const onUserConnect = () => {
   socket.emit("save username", username);
 };
 
-const addNewUser = (user) => {
-  if (currentRoom) return;
-  if (document.querySelector(`.${user}-userlist`)) return;
-  const userElement = `
-        <div class="${user}-userlist">
-            <p>
-                ${user}
-            </p>
-        </div>
-    `;
-  users.innerHTML += userElement;
-};
-
-socket.on("new user connected", (data) => {
-  data.map((user) => addNewUser(user));
-});
-
-socket.on("user disconnected", (user) => {
-  document.querySelector(`.${user}-userlist`).remove();
-});
-
 window.onload = () => {
   onUserConnect();
   socket.emit("get rooms");

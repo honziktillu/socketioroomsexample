@@ -46,21 +46,24 @@ io.on("connection", (socket) => {
     console.log(`${socket.data.user} disconnected`);
     if (socket.data.room) {
       roomsInfo[socket.data.room].users.delete(socket.data.user);
+      socket.leave(socket.data.room);
       io.to(socket.data.room).emit("update room users", [
         ...roomsInfo[socket.data.room].users,
       ]);
     }
-    io.emit("user disconnected", socket.data.user);
   });
 
   socket.on("chat", (data) => {
-    io.emit("chat", data);
+    if (socket.data.room) {
+      io.to(socket.data.room).emit("chat", data);
+    }
   });
 
   socket.on("join room", (data) => {
     if (rooms.has(data.roomNum)) {
       if (socket.data.room) {
         roomsInfo[socket.data.room].users.delete(socket.data.user);
+        socket.leave(socket.data.room);
         io.to(socket.data.room).emit("update room users", [
           ...roomsInfo[socket.data.room].users,
         ]);
